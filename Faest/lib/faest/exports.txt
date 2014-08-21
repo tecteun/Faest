@@ -1,0 +1,36 @@
+# built in symbols that must always be preserved
+_start1
+malloc
+free
+memcpy
+memmove
+flascc_uiTickProc
+_sync_synchronize
+_wrap_KEY128
+_wrap_KEY192
+_wrap_KEY256
+_wrap_BLOCKSZ
+_wrap_EBC
+_wrap_CBC
+_wrap_AesCtxIni
+_wrap_AesDecrypt
+_wrap_AesEncrypt
+_wrap_new_AesCtx
+_wrap_delete_AesCtx
+_wrap_AesCtx_Ek_set
+_wrap_AesCtx_Ek_get
+_wrap_AesCtx_Dk_set
+_wrap_AesCtx_Dk_get
+_wrap_AesCtx_Iv_set
+_wrap_AesCtx_Iv_get
+_wrap_AesCtx_Nr_set
+_wrap_AesCtx_Nr_get
+_wrap_AesCtx_Mode_set
+_wrap_AesCtx_Mode_get
+_wrap_dispose
+
+# symbols for C++ exception handling
+_Unwind_SjLj_Register
+_Unwind_SjLj_Resume
+_Unwind_SjLj_Unregister
+_Unwind_SjLj_RaiseException

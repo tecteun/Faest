@@ -1,0 +1,21 @@
+
+all: check
+	@echo "-------- PassingData --------"
+	@echo "-> Generate SWIG wrappers around the functions in the library"
+	"$(FLASCC)/usr/bin/swig" -as3 -module Faest -outdir . -includeall -ignoremissing -o Faest_wrapper.c swig.i
+
+	@echo "-> Compile the SWIG wrapper to ABC"
+	$(AS3COMPILERARGS) -abcfuture -AS3 -import $(call nativepath,$(FLASCC)/usr/lib/builtin.abc) -import $(call nativepath,$(FLASCC)/usr/lib/playerglobal.abc) Faest.as
+	# rename the output so the compiler doesn't accidentally use both this .as file along with the .abc file we just produced
+	mv Faest.as Faest.as3
+
+	@echo "-> Compile the library into a SWC"
+	"$(FLASCC)/usr/bin/gcc" -O4 $(BASE_CFLAGS) Faest.abc Faest_wrapper.c faestmain.c faest.c -emit-swc=tec.Faest -o Faest.swc
+
+	@echo "-> Compile an example SWF that uses that SWC"
+	"$(FLEX)/bin/mxmlc" -static-link-runtime-shared-libraries -compiler.omit-trace-statements=false -library-path+=Faest.swc PassData.as -debug=true -o PassData.swf
+
+include ../Makefile.common
+
+clean:
+	rm -f *_wrapper.c *.swf *.swc *.as3 *.abc
